@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics Tracker Demo</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #a78bfa, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      backdrop-filter: blur(12px);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      color: #c4b5fd;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-purple { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff; }
+    .btn-blue   { background: linear-gradient(135deg, #2563eb, #60a5fa); color: #fff; }
+    .btn-teal   { background: linear-gradient(135deg, #0d9488, #5eead4); color: #0f172a; }
+    .btn-pink   { background: linear-gradient(135deg, #db2777, #f472b6); color: #fff; }
+    .btn-amber  { background: linear-gradient(135deg, #d97706, #fbbf24); color: #1e1b4b; }
+    .btn-green  { background: linear-gradient(135deg, #16a34a, #4ade80); color: #fff; }
+
+    .links {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      color: #93c5fd;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .links a:hover {
+      color: #c4b5fd;
+      text-decoration: underline;
+    }
+
+    .status {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #86efac;
+      width: 100%;
+      max-width: 600px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 Analytics Demo</h1>
+  <p class="subtitle">Click around — every interaction is tracked.</p>
+
+  <div class="card">
+    <h2>Interactive Elements</h2>
+    <div class="btn-grid">
+      <button class="btn btn-purple" id="btn-signup">Sign Up</button>
+      <button class="btn btn-blue" id="btn-learn">Learn More</button>
+      <button class="btn btn-teal" id="btn-pricing">Pricing</button>
+      <button class="btn btn-pink" id="btn-contact">Contact</button>
+      <button class="btn btn-amber" id="btn-docs">Docs</button>
+      <button class="btn btn-green" id="btn-download">Download</button>
+    </div>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#about">About Us</a>
+      <a href="#blog">Blog</a>
+      <a href="#support">Support</a>
+    </div>
+  </div>
+
+  <div class="status" id="status">
+    ✅ Tracker loaded — session started. Click anywhere to generate events.
+  </div>
+
+  <!-- Configure tracker backend URL -->
+  <script>
+    window.TRACKER_URL = 'http://localhost:3002';
+  </script>
+  <script src="../tracker/tracker.js"></script>
+</body>
+</html>
