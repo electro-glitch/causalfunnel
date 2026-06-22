@@ -5,13 +5,22 @@ const Event = require('../models/Event');
 // GET /api/sessions — group by session_id
 router.get('/', async (req, res) => {
   try {
+    const oneHourAgo = Date.now() - 60 * 60 * 1000;
+
     const sessions = await Event.aggregate([
+      { $sort: { timestamp: 1 } },
       {
         $group: {
           _id: '$session_id',
           event_count: { $sum: 1 },
           last_seen: { $max: '$timestamp' },
+          last_url: { $last: '$url' },
         },
+      },
+      {
+        $match: {
+          last_seen: { $gte: oneHourAgo }
+        }
       },
       { $sort: { last_seen: -1 } },
       {
@@ -20,6 +29,7 @@ router.get('/', async (req, res) => {
           session_id: '$_id',
           event_count: 1,
           last_seen: 1,
+          last_url: 1,
         },
       },
     ]);

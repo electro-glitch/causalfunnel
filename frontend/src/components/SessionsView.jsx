@@ -77,6 +77,10 @@ export default function SessionsView() {
           <span className="status-dot live"></span>
           {sessions.length} active session{sessions.length !== 1 ? 's' : ''} · Auto-refreshing every 10s
         </p>
+        <p className="page-subtitle" style={{ marginTop: '0.5rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+          ℹ️ Sessions inactive for over 1 hour are automatically hidden. 
+          When a session becomes active again, it will reappear with all its historical activity.
+        </p>
       </div>
 
       <div className="card">
@@ -103,8 +107,9 @@ export default function SessionsView() {
             <thead>
               <tr>
                 <th>Session ID</th>
+                <th>Last URL</th>
                 <th>Events</th>
-                <th>Last Seen</th>
+                <th>Last Active</th>
               </tr>
             </thead>
             <tbody>
@@ -118,6 +123,11 @@ export default function SessionsView() {
                     <span className="session-id" title={s.session_id}>
                       {truncateId(s.session_id)}
                     </span>
+                  </td>
+                  <td>
+                    <div style={{ maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: '0.85rem' }} title={s.last_url}>
+                      {s.last_url}
+                    </div>
                   </td>
                   <td>
                     <span className="badge badge-blue">{s.event_count}</span>
