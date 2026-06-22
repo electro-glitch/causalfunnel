@@ -34,10 +34,10 @@ export default function SessionsView() {
     }
   }, []);
 
-  // Initial load + 10s polling
+  // Initial load + 2s polling
   useEffect(() => {
     loadSessions();
-    const interval = setInterval(loadSessions, 10000);
+    const interval = setInterval(loadSessions, 2000);
     return () => clearInterval(interval);
   }, [loadSessions]);
 
@@ -75,7 +75,7 @@ export default function SessionsView() {
         <h1 className="page-title">Sessions</h1>
         <p className="page-subtitle">
           <span className="status-dot live"></span>
-          {sessions.length} active session{sessions.length !== 1 ? 's' : ''} · Auto-refreshing every 10s
+          {sessions.length} active session{sessions.length !== 1 ? 's' : ''} · Auto-refreshing every 2s
         </p>
         <p className="page-subtitle" style={{ marginTop: '0.5rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
           ℹ️ Sessions inactive for over 1 hour are automatically hidden. 

@@ -44,7 +44,7 @@ export default function HeatmapView() {
       .catch(() => {});
   }, []);
 
-  // Fetch heatmap data when URL is selected
+  // Fetch heatmap data when URL is selected (and poll every 2s)
   useEffect(() => {
     if (!selectedUrl) {
       setClicks([]);
@@ -54,17 +54,23 @@ export default function HeatmapView() {
     let cancelled = false;
     setLoading(true);
 
-    fetchHeatmap(selectedUrl)
-      .then((data) => {
-        if (!cancelled) setClicks(data);
-      })
-      .catch((err) => console.error('Failed to fetch heatmap:', err))
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+    const loadHeatmap = () => {
+      fetchHeatmap(selectedUrl)
+        .then((data) => {
+          if (!cancelled) {
+            setClicks(data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => console.error('Failed to fetch heatmap:', err));
+    };
+
+    loadHeatmap();
+    const interval = setInterval(loadHeatmap, 2000);
 
     return () => {
       cancelled = true;
+      clearInterval(interval);
     };
   }, [selectedUrl]);
 
@@ -73,7 +79,7 @@ export default function HeatmapView() {
       <div className="page-header">
         <h1 className="page-title">Heatmap</h1>
         <p className="page-subtitle">
-          Visualize click density across your pages
+          Visualize click density across your pages · <span className="status-dot live"></span> Auto-refreshing every 2s
         </p>
       </div>
 

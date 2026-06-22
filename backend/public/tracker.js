@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  const BATCH_SIZE = 5;
-  const FLUSH_INTERVAL_MS = 3000;
+  const BATCH_SIZE = 1;
+  const FLUSH_INTERVAL_MS = 500;
 
   let queue = [];
   let flushTimer = null;
